@@ -1,17 +1,16 @@
 require("dotenv").config("./.env");
 
 
-console.log(process.env.NODE_ENV)
-
+console.log(process.env.NODE_ENV_HOST)
 
 
 const http = require("http")
-const hostname = "127.0.0.1"
-const port = 3000;
+const hostname = process.env.HOST_NAME
+const port = process.env.NODE_ENV_HOST;
+const secret = process.env.SECRET_KEY;
+// grabbed from .env file
 
 
-const secretKey = "myHardcodedSecretKey";
-// Hardcoded 'SECRET' Key
 
 const fs = require("fs");
 let directory_name = "./"
@@ -26,11 +25,10 @@ const server = http.createServer((req,res)=>{
   res.end(f)
 });
 
-// simple operation if else statement
+
 function performSecretOperation(condition) {
   if (condition) {
-      // Use the secret key for some operation
-      console.log("Authenticated with secret key:", secretKey);
+      console.log("Authenticated with secret key:", secret);
   } else {
       console.log("Operation failed.");
   }
